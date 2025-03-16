@@ -1,8 +1,9 @@
 import React, { use } from "react";
 import useScrollToTop from "./scrolltotop";
+import "../style/home.css"
 
 export default function Home(){
-    useScrollToTop("upToTop");
+    //useScrollToTop('upToTop');
 
     const jsonData = {
         title: "My Portfolio",
@@ -30,8 +31,69 @@ export default function Home(){
       };
     
       return (
-        <>
-        <h2>HI</h2>
-        </>
+        <div>
+          <main>
+            <h1 className="title">{jsonData.title}</h1>
+    
+            <section className="main">
+              <div className="profile-section">
+                <img
+                  className="profile-img"
+                  src={jsonData.profileImage}
+                  alt="Profile picture of person"
+                />
+                <div className="introbox">
+                  <h1>{jsonData.person.name}</h1>
+                  <h2>{jsonData.person.title}</h2>
+                  <p>{jsonData.person.bio}</p>
+                </div>
+              </div>
+            </section>
+    
+            <section className="circular-button-container">
+              {jsonData.circularButtons.map((button, index) => (
+                <a
+                  key={index}
+                  href={button.href}
+                  className={`circular-button ${button.className}`}
+                  download={button.download || false}
+                >
+                  {button.text}
+                </a>
+              ))}
+            </section>
+          </main>
+    
+          <section className="totop">
+            <button className="button" id="upToTop">
+              <h3>Back to Top</h3>
+            </button>
+          </section>
+    
+          <footer className="footer">
+            <div className="footer-left">
+              <p>
+                <strong>Phone</strong>
+                <br />
+                {jsonData.contactInfo.phone}
+              </p>
+              <p>
+                <strong>Email</strong>
+                <br />
+                {jsonData.contactInfo.email}
+              </p>
+            </div>
+            <div className="footer-right">
+              <p>Follow Me</p>
+              <div className="social-icons">
+                {jsonData.socialMedia.map((social, index) => (
+                  <a key={index} href={social.href}>
+                    <img src={social.icon} alt={social.alt} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </footer>
+        </div>
       );
 }
